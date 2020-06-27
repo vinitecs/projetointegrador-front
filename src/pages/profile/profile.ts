@@ -36,10 +36,11 @@ export class ProfilePage {
          
         this.navCtrl.setRoot('HomePage');
 
-       }else{
-         this.navCtrl.setRoot('HomePage');
        }
      });
+    }
+    else{
+      this.navCtrl.setRoot('HomePage');
     }
   }
 
