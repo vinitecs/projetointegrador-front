@@ -1,16 +1,14 @@
 page-home {
- h3{
-   
-    display: block;
-    text-align: center;
- }
- img{
-   
-     width: 200px;
-     margin:auto;
-     display:block;
-     padding:10px;
 
+    h3 {
+        text-align: center;
+    }
 
- }
+    img {
+        width: 200px;
+        align-self: center;
+        margin: auto;
+        display: block;
+        padding: 10px;
+    }
 }
