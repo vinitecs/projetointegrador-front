@@ -45,6 +45,6 @@ getImageUrlIfExists(){
 }
 addToCart(produto: ProdutoDTO){
   this.cartService.addProduto(produto);
-  this.navCtrl.setRoot('setPage');
+  this.navCtrl.setRoot('CartPage');
 }
 }
