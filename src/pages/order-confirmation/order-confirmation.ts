@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { PedidoDTO } from '../../models/pedido.dto';
 import { CartItem } from '../../models/cart-item';
 import { CartService } from '../../services/domain/cart.service';
@@ -20,13 +20,15 @@ pedido: PedidoDTO;
 cartItems: CartItem[];
 endereco:EnderecoDTO;
 cliente: ClienteDTO;
+codpedido:string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public cartService: CartService,
     public clienteService: ClienteService,
-    public pedidoService: PedidoService
+    public pedidoService: PedidoService,
+ 
    ) {
     this.pedido = this.navParams.get('pedido');
   }
@@ -53,16 +55,26 @@ total(){
 back(){
   this.navCtrl.setRoot('CartPage')
 }
-checkout(){
-  this.pedidoService.insert(this.pedido)
-  .subscribe(response=>{
-    this.cartService.createOrClearCart();
-    console.log(response.headers.get("location"));
-  },
-  error=>{
-    if(error.status == 403){
-      this.navCtrl.setRoot('HomePage')
-    }
-    });
+home(){
+  this.navCtrl.setRoot('CategoriasPage')
+
 }
+    checkout(){
+      this.pedidoService.insert(this.pedido)
+      .subscribe(response=>{
+        this.cartService.createOrClearCart();
+        this.codpedido = this.extractId(response.headers.get('location'));
+      },
+      error=>{
+        if(error.status == 403){
+          this.navCtrl.setRoot('HomePage')
+        }
+        });
+}
+    private extractId(location:string):string{
+        let position = location.lastIndexOf('/');
+        return location.substring(position + 1, location.length);
+    }
+
+
 }
